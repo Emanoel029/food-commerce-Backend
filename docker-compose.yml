@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  pgadmin:
+    image: docker/getting-started #dpage/pgadmin4
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - pgadmin-data:/var/lid/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_DB: devlop
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      PGDATA: /var/lid/postgresql/data
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lid/postgresql/data
+
+volumes:
+  postgres-data:
+  pgadmin-data:
